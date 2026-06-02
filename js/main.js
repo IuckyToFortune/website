@@ -1,8 +1,3 @@
-/* ============================================
-   LUCKY EWURUM — Portfolio JS
-   ============================================ */
-
-// ── Canvas particle / molecule background ──
 (function () {
   const canvas = document.getElementById('bg-canvas');
   if (!canvas) return;
