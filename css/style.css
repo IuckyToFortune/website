@@ -130,6 +130,13 @@ nav.scrolled {
   padding-top: 6rem;
 }
 .hero-inner { max-width: 820px; }
+
+/* Keep the landing content visible even if a browser or extension skips CSS animations. */
+#hero .container {
+  position: relative;
+  z-index: 2;
+}
+
 .hero-label {
   font-family: 'DM Mono', monospace;
   font-size: 0.72rem;
@@ -137,8 +144,8 @@ nav.scrolled {
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 1.4rem;
-  opacity: 0;
-  animation: fadeUp 0.8s var(--transition) 0.2s forwards;
+  opacity: 1;
+  animation: heroSlideUp 0.8s var(--transition);
 }
 .hero-label span {
   display: inline-block;
@@ -150,8 +157,8 @@ nav.scrolled {
 .hero-name {
   font-size: clamp(3rem, 8vw, 6.5rem);
   color: var(--text);
-  opacity: 0;
-  animation: fadeUp 0.9s var(--transition) 0.35s forwards;
+  opacity: 1;
+  animation: heroSlideUp 0.85s var(--transition);
   margin-bottom: 0.3rem;
 }
 .hero-name em { color: var(--highlight); font-style: normal; }
@@ -160,22 +167,22 @@ nav.scrolled {
   font-size: clamp(1rem, 2.5vw, 1.35rem);
   color: var(--muted);
   font-weight: 400;
-  opacity: 0;
-  animation: fadeUp 0.9s var(--transition) 0.5s forwards;
+  opacity: 1;
+  animation: heroSlideUp 0.9s var(--transition);
   margin-bottom: 1.8rem;
 }
 .hero-desc {
   font-size: 1.05rem;
   max-width: 560px;
   color: var(--muted);
-  opacity: 0;
-  animation: fadeUp 0.9s var(--transition) 0.65s forwards;
+  opacity: 1;
+  animation: heroSlideUp 0.95s var(--transition);
   margin-bottom: 2.6rem;
 }
 .hero-cta {
   display: flex; gap: 1rem; flex-wrap: wrap;
-  opacity: 0;
-  animation: fadeUp 0.9s var(--transition) 0.8s forwards;
+  opacity: 1;
+  animation: heroSlideUp 1s var(--transition);
 }
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
@@ -212,8 +219,8 @@ nav.scrolled {
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   color: var(--muted);
-  opacity: 0;
-  animation: fadeUp 1s var(--transition) 1.2s forwards;
+  opacity: 1;
+  animation: none;
 }
 .scroll-line {
   width: 1px; height: 48px;
@@ -499,9 +506,29 @@ footer span { color: var(--highlight); }
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+@keyframes heroSlideUp {
+  from { transform: translateY(18px); }
+  to   { transform: translateY(0); }
+}
 @keyframes scrollPulse {
   0%, 100% { opacity: 0.4; transform: scaleY(1); }
   50%       { opacity: 1;   transform: scaleY(1.08); }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-label,
+  .hero-name,
+  .hero-title,
+  .hero-desc,
+  .hero-cta,
+  .scroll-indicator,
+  .scroll-line,
+  .reveal {
+    animation: none;
+    transition: none;
+  }
 }
 
 /* ============================================
